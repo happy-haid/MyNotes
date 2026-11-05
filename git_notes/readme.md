@@ -255,14 +255,15 @@
 > 9. 查看当前哪些分支还没有合并到当前分支：`git branch --no-merged`;
 > 10. 把远程分支合并到当前分支：`git merge /`，如`git merge origin/serverfix`；如果是单线的历史分支不存在任何需要解决的分歧，只是简单的将 HEAD 指针前移，所以这种合并过程可以称为快进（Fast forward），而如果是历史分支是分叉的，会以当前分叉的两个分支作为两个祖先，创建新的提交对象；如果在合并分支时，遇到合并冲突需要人工解决后，再才能提交；
 > 11. 在远程分支的基础上创建新的本地分支`：git checkout -b /`，如`git checkout -b serverfix origin/serverfix`;
-> 12. 从远程分支 checkout 出来的本地分支，称之为跟踪分支。在跟踪分支上向远程分支上推送内容：`git push`。该命令会自动判断应该向远程仓库中的哪个分支推送数据；在跟踪分支上合并远程分支：`git pull`；
-> 13. 将一个分支里提交的改变移到基底分支上重放一遍：`git rebase `，如`git rebase master server`，将特性分支 server 提交的改变在基底分支 master 上重演一遍；使用 rebase 操作最大的好处是像在单个分支上操作的，提交的修改历史也是一根线；如果想把基于一个特性分支上的另一个特性分支变基到其他分支上，可以使用`--onto`操作：`git rebase --onto `，如`git rebase --onto master server client`；使用 rebase 操作应该遵循的原则是：**一旦分支中的提交对象发布到公共仓库，就千万不要对该分支进行 rebase 操作**；
+> 12. 从远程分支 checkout 出来的本地分支，称之
+> 13. 为跟踪分支。在跟踪分支上向远程分支上推送内容：`git push`。该命令会自动判断应该向远程仓库中的哪个分支推送数据；在跟踪分支上合并远程分支：`git pull`；
+> 14. 将一个分支里提交的改变移到基底分支上重放一遍：`git rebase `，如`git rebase master server` （把 server中“master 之后的那些提交”，重新放到 master 后面。），将特性分支 server 提交的改变在基底分支 master 上重演一遍；使用 rebase 操作最大的好处是像在单个分支上操作的，提交的修改**历史也是一根线**；如果想把基于一个特性分支上的另一个特性分支变基到其他分支上，可以使用`--onto`操作：`git rebase --onto `，如`git rebase --onto master server client`（把 client 中“server 之后的那些提交”，重新放到 master 后面。）；使用 rebase 操作应该遵循的原则是：**一旦分支中的提交对象发布到公共仓库，就千万不要对该分支进行 rebase 操作**；rebase 会改写提交历史；所以已经公开给别人使用的历史不要随便改。
 
 ### 暂时保存更改
 
 git 中可以不提交更改，只提取分支上所有改动并储存，让开发人员得到一个干净的副本，临时转向其它工作。复制到“剪切板”，可以“粘贴“到其它分支。
 
-场景：
+场景： 技巧https://blog.csdn.net/qq_42215257/article/details/163332021
 
 - 储存临时改动：`git stash`
 
@@ -383,9 +384,13 @@ git 中可以不提交更改，只提取分支上所有改动并储存，让开�
 
    私钥名称：` id_rsa`
 
+   ssh-keygen -t ed25519 -C "邮箱@xxil.com" 代码
+
 2. Github 添加公钥
 
 ![](git_notes/20191115165957.png)
+
+cat C:\Users\xxxx\.ssh\id_ed25519.pub 输出结果完整复制到New SSH key
 
 3. 复制 SSH 地址：
 
